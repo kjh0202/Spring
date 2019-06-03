@@ -1,0 +1,457 @@
+﻿스프링의 역사
+
+- 2002년 로드 존슨(MVC)
+- 정식 등록 : 2004년 4월
+
+버전
+2004년 3월 : 1.x
+2006년 10월 : 2.x
+2009년 12월 : 3.x (우리나라 기본)
+2014년 4월 : 4.x
+2017년 9월 : 5.x
+
+2006년부터 SSH라는 용어를 사용 
+S : spring
+S : struts
+H : hibernate
+
+2013년 이후 스트럿츠 2.3버전을 기준으로 서비스를 종료
+
+전자정부프레임워크는 스프링 3.0을 기반으로 구축
+
+초기에는 스프링 서브 프로젝트로 화면 전환의 흐름을 관리하는 스프링 웹 플로가 있었고, 그 후로 인증/허가 처리를 관리하는 스트링 시큐리티등이 추가 되었으며, 일괄처리용의 스프링 배치가 출시되었음.
+
+최근에는 애플리케이션 개발을 간단하게 해주는 스프링 부트가 주목을 받게 됨.
+
+
+스프링을 설정하는 방법
+
+1.0 ~ 3.0 버전에는
+Spring Legacy Project (현업에서 가장 많이 사용하는 방법)
+- 기본페이지로 jsp 페이지를 사용
+
+4.0 이후 버전
+Spring Boot (최신기술 : 설정을 최소화 한 것)
+- jsp 페이지가 아닌 기본 탬플릿을 사용합니다.
+
+
+HTML(정적) -> CGI(ASP) -> 서블릿, JSP -> EJB (Enterprise Java Bean) -> 스프링
+
+현재에는 Ajax로 웹 브라우저에 풍부한 화면을 구현함.
+
+Ajax란?
+javascript의 비동기 통신(XMLHttpRequest)을 사용해서 웹 브라우저의 화면 이동 없이 화면 일부를 변경하는 기술, 화면의 편리성을 향상
+대표적으로 google의 map의 화면 이동이나 지도상에서 상점 정보를 표시하는 것 등이 있음.
+
+
+Model 1
+
+- 웹 브라우저의 요청을 JSP 가 담당
+- JSP가 요청을 받고 해당 요청에 대한 처리를 위해 빈즈(=DTO)와 통신
+- 빈즈가 처리 결과를 주면 그것을 클라이언트에 전달
+
+- 장점 : 구조 간단
+	 개발이 쉽다
+	 개발기간이 짧다
+
+- 단점 : 유지보수가 어렵다
+	 개발자와 디자이너가 말이 잘 통해야 함
+
+Moder 2
+
+- 클라이언트와 JSP 사이에 컨트롤러가 끼어듬
+- 요청을 컨트롤러(Servlet)에서 처리
+- 요청에 따른 처리를 위해 빈즈와 통신
+- 응답할 JSP 선택할 수 있음
+
+- 장점 : 컨트롤러와 뷰의 분리로 유지 보수가 좋다
+	 (model은 데이터처리)
+	 개발자와 디자이너의 역할 분담
+- 단점 : 높은 수준의 이해도 필요
+	 설계에 많은 투자
+	 개발 기간이 길다
+
+
+선택
+
+규모가 작고 유지보수가 적으면 Model 1 방식을 선택,
+규모가 크고 유지보수가 많으면 Model 2 방식을 선택
+
+
+MVC
+
+Model : 데이터 생성, 저장, 처리
+View : 결과를 보여주고 입력을 받은 화면을 구성
+Controller : 입력의 흐름. 제어 / 요청을 Model 에게,
+	     Model의 결과를 View에 전달해 주는 역할을 함
+
+
+Redirect 와 Dispatcher의 차이점
+
+
+
+자바를 이용해서 애플리케이션을 개발할 때 메이븐과 그래들 같은 빌드 도구를 사용하는데, 이런 빌드 도구들의 주요 특징 중 하나는 의존 모듈(jar) 관리에 있음.
+예를 들면 메이븐의 경우 중앙 리파지터라고 불리는 서버로부터 필요한 jar 파일을 다운로드 받아 처리합니다.
+
+
+
+Spring 개발 환경 설정
+
+- Java 와 Jsp 환경에서 개발자가 좀 더 편안하게 프로젝트를 진행할 수 있도록 만들어 놓은 툴
+
+- 스프링 개발 툴
+  기존의 이클립스에서 확장 프로그램을 설치 (현업에서)
+
+
+- InteliJ
+  안드로이드 웹 개발에 주로 사용함
+
+
+- STS 전용툴(Spring Tool Suite)
+
+  https://spring.io
+  https://spring.io/tools (Download STS4, Windows 64-bit 다운로드)
+  설치 안될때 eclipse.exe 실행
+
+
+================================================== 설치하기 =============================================================
+sts4 에서는 Spring Boot만 지원하기 때문에 Spring Legacy Project를 지원하지 않기 때문에 해당 기능을 추가해 주어야 함.
+
+: Help Eclipse Marketplace -> spring tools 검색 -> spring tools 3 Add-On (aka Spring Tool Suite 3) 3.9.8.RELEASE 설치 
+
+windows->preferences->workspace(UTF-8로 변경), web(html,css,jsp를 UTF-8로 변경)
+windows->preferences->web->jsp files->templates에서 New JSP File (html 5) 있는지 확인하기???
+
+
+help->install->2019-03 - https://download.eclipse.org/releases/2019-03->java web->Eclipese java web developer tools 선택하고 끝냄
+
+
+
+http://mannaedu.com/bbs/board.php?bo_table=pds&wr_id=74  (접속하기)
+-> sample.zip 다운로드
+
+이클립스에서,
+File -> Import -> Genenal -> Existion Projects into Workspace -> 다운받은 sample 폴더 선택
+
+pom.xml 에서 수정, 추가
+
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+=> http://mvnrepository.com  에서 검색, 버전 클릭해서 복사함
+
+
+라이브러리 저장 장소
+c: -> 사용자 -> Administrator(각자이름) -> .m2 -> repository 
+
+
+File -> New -> other -> spring 검색 -> spring Legacy project -> spring02 (Project name), Spring MVC Project선택 -> com.example.spring02 입력 (현업)
+
+자바버전 1.6->1.8로 변경
+	<properties>
+		<java-version>1.8</java-version>
+		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<org.aspectj-version>1.6.10</org.aspectj-version>
+		<org.slf4j-version>1.6.6</org.slf4j-version>
+	</properties>
+우클릭 proferense java complier 1.8 3개 변경
+우클릭 proferense Project Facets 에서도 java 1.8로 변경
+우클릭 java build path 에서 configbuilepath -> libraries 에서도 javase-1.8인거 확인
+
+
+
+이클립스에서 import한거 폴더 삭제시
+c: -> 사용자 -> Administrator(각자이름) -> .m2 -> repository 도 같이 삭제해야 함.
+
+
+
+sample에서 복사해오기
+pom.xml
+src/main/resource/mappers->sampleMapper.xml
+log4j.xml
+log4jdbc.log4j2.properties
+logback.xml
+mybatis-comfig.xml 복사해오기
+
+src -> main -> webapp -> WEB-INF -> web.xml 복사해오기
+src -> main -> webapp -> WEB-INF -> spring -> appServlet-> servlet-comtext.xml 복사해오기
+src -> main -> webapp -> WEB-INF -> spring -> root-context.xml 복사해오기
+
+
+
+(spring에 있는) src -> main -> webapp -> WEB-INF -> spring -> appServlet-> servlet-comtext.xml 복사해오기
+	1.
+	<!-- 스프링 빈을 태그로 등록하지 않고 자동으로 검색(auto scan) --> 
+	<context:component-scan base-package="com.example.sample.*" />
+
+	2. 
+	<!-- 스프링 빈을 태그로 등록하지 않고 자동으로 검색(auto scan) --> 
+	<context:component-scan base-package="com.example.spring01" />
+
+1번을 2번으로 변경
+
+
+아파치 톰캣
+https://tomcat.apache.org
+
+Download -> Tomcat9 -> 64-bit Windows.zip
+apache-tomcat-9.020 폴더 복사해서 
+d:workspace1에 복사
+
+window->preferences->server->Runtime Environment 에서 9.0추가하기
+
+spring01->src->main->webapp->web-inf->views->home.jsp 서버로 실행하기, 안되면
+http://localhost:8080/spring01 (이 주소로)
+
+한글깨질때
+-----1. <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<html>
+<head>
+	<title>Home</title>
+-------2.<meta http-equiv="Content-type" content="text/html; charset="UTF-8">
+
+1,2번 추가
+
+
+실행시키면 컴퓨터는 pom.xml-> web.xml먼저 봄 -> root-context.xml -> sevlet-context.xml -> com.example.spring01 -> home.jsp
+
+===========================================================================================================================
+
+
+# 스프링에서 다음과 같이 자동으로 검색해서 객체를 생성
+
+@Controller : 컨트롤러 빈 (메인 클래스가 됨)
+@Repository : DAO (데이터베이스 관련(작업)) bean
+@Service : 서비스(비즈니스 관련 로직) beam
+@Inject : 의존성 관계 주입
+
+
+스프링 디렉토리 구조
+
+src/main/java : 자바 코드 (Controller, Model, Service)
+
+src/main/resources : 자바 코드에서 참조하는 리소스 파일들 (sqlMapconfig.xml, mybatis 의 mapper)
+
+src/test/java : 테스트 관련 코드
+
+src/main/webapp : 웹서비스 루트 디렉토리
+
+src/main/webapp/resource 
+- js, css, image 관련 웹 리소스 파일들 저장
+
+
+src/main/webapp/WEB-INF : 외부에서 파일 경로나 디렉토리를 보지 못하게 제한을 걸어 두었음.
+
+src/main/webapp/WEB-INF/views : html 문서, jsp 문서
+
+
+======================예제========================
+
+Controller와 view 실습
+
+MainController 클래스를 작성(com.example.spring01 우클릭)
+
+
+
+현재 스프링 버전 : 5.x
+jdk 8 + spring 5.x
+
+jdk 6 + spring 4.x
+
+jdk 5 + spring 3.x
+
+서버가 실행 되면서 가장 먼저 읽는 파일 : web.xml 파일 (WEB-INF밑에) 
+web.xml
+- 웹 프로젝트의 배치 기술서
+- 웹 프로젝트의 환경 설정에 관한 파일
+
+mySql 포트 번호 : 3306
+root-context.html
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<!-- 드라이버 클래스 이름이 변경됨 -->
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+		<!-- 연결문자열에 log4jdbc가 추가됨 -->
+		<property name="url"
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl" />1.
+		<property name="username" value="spring" />2.
+		<property name="password" value="1234" />3.
+	</bean>
+1~3번 변경함(orcl, spring, 1234)
+
+---------------------------------------------------
+오라클 계정 생성
+- 관리자 권한으로 접근
+sqlplus / as sysdba
+
+---------------------------------------------------
+- 작업할 워크 스페이스 작성
+create tablespace spring
+datafile 'd:\\work1\\spring.dbf' size 50m
+autoextend on
+next 10m
+maxsize unlimited;	
+
+
+//이게 데이터베이스가 됨.(spring이라는 폴더개념)
+//50m가 넘으면 자동적으로 
+//10m씩 증가함
+//최대사이즈는 주지 않음.
+
+
+---------------------------------------------------
+- 사용자 계정 삭제
+drop user spring cascade;
+//cascade는 연관된 거 모두 삭제
+
+---------------------------------------------------
+- 사용자 계정 만들기 (root-context.html에서 2,3번 설정한대로)
+create user spring identified by 1234 default tablespace spring;
+
+---------------------------------------------------
+- 사용자 권한 부여
+grant connect, resource, dba to spring;
+
+conn spring/1234 
+//접속하기
+
+show user;
+//계정보기
+
+---------------------------------------------------
+spring01 / src/main/resource / mappers / sampleMapper.xml 에서 데이터베이스 삽입, 삭제, 수정 등 
+
+
+---------------------------------------------------
+
+위 코드에서 자료가 리턴할 때 xml 형식이나 json 형식으로 리턴된다는 것을 알려주어야 합니다.
+
+xml < >  </>
+
+json 형식 {"name":"냉장고", "price":5000}
+
+json 형식의 String 형식으로 전달해 주는 라이브러리를 추가해 주어야 합니다.
+
+http://mvnrepository.com 에서
+jackson-databind 검색
+2.9.3
+
+<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.9.3</version>
+</dependency>
+
+=============================================================================================
+
+# spring 과 mybatis 연동
+
+로깅툴을 사용하는 이유
+
+- System.out.println()
+  I.O(입출력시스템) 리소스를 많이 사용하여 시스템이 느려집니다.
+  로그를 파일로 저장하여 분석할 필요가 있음.
+
+- 로깅툴의 종류
+  * commons-logging : 스프링 3에서 주로 사용함
+  * log4j : 효율적인 메모리 관리로 많이 사용하고 있음 (src/main/resource에 log4j.xml 있음)
+  * logback : log4j 보다 성능이 더 우수하며 최근에 많이 사용하고 있음
+  * SLF4J : logback을 사용하기 위한 인터페이스
+    (pom.xml있음)
+
+- 로그를 수집할 클래스 변수 선언
+  private static final Logger logger = LoggerFactory.getLogger(클래스이름.class)
+  (static은 클래스 변수임)
+
+  static final : 로그 내용이 바뀌지 않도록 지정
+
+- 로그의 레벨
+  Debug : Debug, Info, Warn, Error 포함
+  Info : Info, Warn, Error 포함
+  Warn :  Warn, Error 포함
+  Error : Error 포함
+
+spring01 우클릭 -> java build path -> library추가(JUNIT 4)
+
+
+데이터 메퍼인 mybatis 를 사용하는 이유는?
+: 자바 코드에 데이트베이스 연결 문자열 등의 중요한 정보가 직접 입력하는 것은 보안상 안전하지 않음
+(따라서 숨기게 됨)
+
+/src/test/java 밑에 MybatisTest 클래스를 작성 
+
+
+회원 관리 예제
+
+- 전체적인 구성도
+
+Controller
+	  MemberController.java
+
+Model
+	  MemberDAO.java		인터페이스
+	  MemberDAOImpl.java		구현클래스
+	  MemberDTO.java	
+	  memberMapper.xml		SQL 메퍼
+
+View
+	  member_list.jsp
+	  write.jsp
+	  view.jsp
+
+Service
+	  MemberService.java		인터페이스
+	  MemberServiceImpl.java	구현클래스
+
+
+Service 가 하는 역할은 컨트롤러와 모델 사이에 존재하며 현업에서 주로 사용하는 방법임.
+즉, 서비스느느 하나인데 모델 메서드가 여러개라든지 트랜잭션 처리하려고 할 때 서비스 단을 추가해줍니다.
+
+---------------------
+sqlplus spring/1234
+---------------------
+- member 테이블 작성
+create table member (
+userid varchar2(50) not null primary key,
+passwd varchar2(50) not null,
+name varchar2(50) not null,
+email varchar2(50),
+join_date date default sysdate
+);
+
+---------------------
+insert into member (userid, passwd, name, email)
+	    values ('kim', '1234', '김철수', 'kim@gmail.com');
+---------------------
+select * from member;
+---------------------
+
+commit
+2
+;
+커밋이 완료되었습니다.
+---------------------
+
+
+
+
+
+
+
+순서
+1. 테이블 -> 2. 변수에 대한 DTO -> 3. 
+
+
+
+
+
+
+
+
+
+
