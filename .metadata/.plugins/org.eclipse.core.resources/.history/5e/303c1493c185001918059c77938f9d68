@@ -1,0 +1,14 @@
+package com.example.spring01;
+
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+
+// JUnit 4.0 으로 현재 클래스를 실행시키기 위해
+@RunWith(SpringJUnit4ClassRunner.class)
+
+// mybatis 에서 참조하는 설정 파일의 위치를 알려주기 위해
+@ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
+
+public class MybatisTest {
+
+}

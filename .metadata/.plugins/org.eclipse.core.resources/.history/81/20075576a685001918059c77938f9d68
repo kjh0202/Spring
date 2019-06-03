@@ -1,0 +1,9 @@
+package com.example.spring01.controller;
+
+// ajax 처리 전용 컨트롤러(백그라운드에서 실행)
+// 스프링 4.0이상 부터 사용 가능
+
+@RestController
+public class SampleController {
+
+}

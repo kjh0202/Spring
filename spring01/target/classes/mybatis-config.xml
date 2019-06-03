@@ -5,6 +5,10 @@
 <configuration>
 
 	<typeAliases>
+		<!-- memberMapper.xml 에서의 resultType="com.example.spring01.model.dto.MemberDTO" 을 별칭(alias)처리 함-->
+		<typeAlias alias = "memberDto" type="com.example.spring01.model.dto.MemberDTO" />
+		
+	
 	</typeAliases>
 
 </configuration>
