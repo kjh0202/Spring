@@ -410,7 +410,7 @@ Service
 
 
 Service 가 하는 역할은 컨트롤러와 모델 사이에 존재하며 현업에서 주로 사용하는 방법임.
-즉, 서비스느느 하나인데 모델 메서드가 여러개라든지 트랜잭션 처리하려고 할 때 서비스 단을 추가해줍니다.
+즉, 서비스는 하나인데 모델 메서드가 여러개라든지 트랜잭션 처리하려고 할 때 서비스 단을 추가해줍니다.
 
 ---------------------
 sqlplus spring/1234
@@ -434,8 +434,40 @@ select * from member;
 commit
 2
 ;
-커밋이 완료되었습니다.
+커밋이 완료되었습니다. (콘솔창에서만)
 ---------------------
+
+
+06.04(화)
+
+
+---------------------
+sqlplus spring/1234
+---------------------
+- addressbook 테이블 작성
+create table addressbook (
+userid varchar2(50) not null primary key,
+passwd varchar2(50) not null,
+name varchar2(50) not null,
+tel number(30) not null,
+address varchar2(255)
+);
+
+---------------------
+insert into addressbook (userid, passwd, name, tel, address)
+	    values ('a', '1111', '김철수', '01012341234', '대전광역시 서구 월평동');
+
+insert into addressbook (userid, passwd, name, tel, address)
+	    values ('b', '1111', '이철수', '01017892154', '대전광역시 동구 판암동');
+---------------------
+select * from member;
+---------------------
+
+commit
+2
+;
+커밋이 완료되었습니다. (콘솔창에서만)
+
 
 
 
@@ -444,7 +476,225 @@ commit
 
 
 순서
+1.뷰
+2.메퍼(sql작성)
+3.DAO
+4.서비스
+5.컨트롤러
+
+
+순서
 1. 테이블 -> 2. 변수에 대한 DTO -> 3. 
+
+
+
+이름 전화번호 성별
+주소록 스프링프구조도, 프로젝트 제출
+
+
+06.05(수)
+
+-------------------------------------------
+상품 관리 프로젝트 진행
+-------------------------------------------
+
+일반적인 방식
+비동기적인 방식(ajax)
+
+-----------------------
+상품테이블 작성
+-----------------------
+
+sqlplus spring/1234
+
+create table product(
+product_id number,
+product_name varchar2(50),
+price number default 0,
+description clob,
+picture_url varchar2(500),
+primary key(product_id)
+);
+
+------------------------
+
+오라클에서 varchar2 는 4000글자까지
+
+★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+
+clob : 최대 4G 입력 가능, 한 테이블에서 여러 컬럼에 사용 가능, 검색 가능
+
+
+long : 최대 2G 입력 가능, 한 테이블에서 한 개 컬럼만 사용 가능, 검색이 안됨
+
+★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
+
+insert into product values (1,'레몬',1500,'레몬에 포함된 구연산은 피로회복에 좋습니다. 비타민 C도 풍부 합니다.','lemon.jpg');
+
+
+insert into product values (2,'오렌지',2000,'비타민 C가 풍부 합니다. 생과일 주스로 마시면 좋습니다.','orange.jpg');
+
+insert into product values (3,'키위',3000,'비타민 C가 매우 풍부 합니다. 다이어트나 미용에 좋습니다.','kiwi.jpg');
+
+insert into product values (4,'포도',5000,'폴리페놀을 다량 함유하고 있어 항산화 작용을 합니다.','grape.jpg');
+
+insert into product values (5,'딸기',8000,'비타민 C나 플라보노이드를 다량 함유하고 있습니다.','strawberry.jpg');
+
+insert into product values (6,'귤',7000,'시네피린을 함유하고 있어 감기 예방에 좋습니다.','tangerine.jpg');
+
+
+commit
+2
+;
+커밋이 완료되었습니다.
+
+//테이블 보기
+select * from tab;
+
+
+상품 코드를 위한 시퀀스 작성(MySQL의 auto_increment)
+
+create sequence seq_product
+start with 10
+increment by 1;
+//10번부터 1씩 증가
+
+
+
+insert into product values (seq_product.nextval,'사과',1500,'맛있는 사과예요','apple.jpg');
+commit
+2
+;
+커밋이 완료되었습니다.
+
+
+//이미지
+http://mannaedu.com/bbs/board.php?bo_table=pds&wr_id=37&page=3
+
+
+
+
+
+************************ 새파일만들기************************
+1. File->New->Spring Legacy Project (Project name:product)하고 next하면
+   Please specify the top-level package e.g.com.mycompany.myapp*에서 이름 만듬 
+   (com.product.spring) ->Spring MVC Project
+   com.product.spring 이 이름을 servlet-context.xml에서 똑같이 바꿔준다.
+2. 프로젝트명 우클릭-> Properties 에서
+   프로퍼티에서 3가지 1.8 바꾸기
+	1) java Build Path 에서 라이브러리에서도 1.8인거 확인
+	2) java Compiler 에서 1.8 3개 바꾸기
+	3) Project Facets -> java 에서도 바꾸기
+
+
+3. sample에 있는 파일 product파일로 복사해서 붙여넣기
+	1) pom.xml
+	2) src->main->webapp->WEB-INF->spring->root-context.xml
+	3) src->main->webapp->WEB-INF->spring->appServlet->servlet-context.xml
+	   servlet-context.xml 열고 맨 아래 고치기("com.product.spring":프로젝트 만들때 설정한거)
+	   <!-- 스프링 빈을 태그로 등록하지 않고 자동으로 검색(auto scan) --> 
+	   <context:component-scan base-package="com.product.spring" /> 
+	4) src->main->webapp->WEB-INF->view->web.xml
+	5) src/main/resources 밑에 mappers 라는 폴더 만들고 sampleMapper.xml 복사해 붙이기
+	6) src/main/resources 밑에 sample에 있는 
+		log4j.xml
+		log4jdbc.log4j2.properties
+		logback.xml
+		mybatis-config.xml
+	   4개 붙이기
+
+
+d:upload 폴더 만들고,
+
+// 메이븐 저장소에서 
+https://mvnrepository.com
+
+//파일 검색
+commos-fileupload
+
+
+------------------------------------------------------
+Apache Commons FileUpload
+1.4
+<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+<!-- 파일 업로드 관련 라이브러리 -->
+
+<dependency>
+    <groupId>commons-fileupload</groupId>
+    <artifactId>commons-fileupload</artifactId>
+    <version>1.4</version>
+</dependency>
+======> pom.xml에 붙여넣기
+
+
+<!-- 이미지 썸네일을 만들어 주는 라이브러리 -->
+4.2
+<dependency>
+    <groupId>org.imgscalr</groupId>
+    <artifactId>imgscalr-lib</artifactId>
+    <version>4.2</version>
+</dependency>
+======> pom.xml에 붙여넣기
+
+-----------------------------------------------------
+======> servlet-context.xml 맨 아래
+
+	<!-- 파일 업로드에 필요한 bean -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		
+	<!--  파일 업로드 최대 용량 -->
+	<beans:property name="maxUploadSize" value="10485760" />
+	</beans:bean>	
+
+	<!-- 파일 업로드를 위한 디렉토리 설정 -->
+	<!-- String uploadPath = new Spring("d:/upload"); -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="d:/upload" />
+	</beans:bean>
+
+붙여넣기
+
+
+http://localhost:8080/spring/upload/uploadForm
+
+=====================
+상품관리 실습 예제
+=====================
+
+
+일반 사용자 : 상품 목록 보기, 장바구니 담기, 장바구니 보기
+
+관리자 : 상품등록, 상품수정/삭제
+
+
+
+model.shop.dto.ProductDto.java
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

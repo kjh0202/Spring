@@ -17,6 +17,7 @@
 		<a href="${path}/gugu.do">구구단</a>	<!-- 방법1일때 -->
 		<a href="${path}/test.do">테스트</a> 
 		<a href="${path}/member/list.do">회원가입</a>
+		<a href="${path}/member/addressbook.do">주소록</a>
 	</div>
 </body>
 </html>

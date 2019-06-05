@@ -7,11 +7,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="member">
 	<!--<select id="memberList" resultType="com.example.spring01.model.dto.MemberDTO">-->
 	<!-- 따라서 별칭처리한 memberDto로 바꿔쓰면 됨 -->
+	
 	<select id="memberList" resultType="memberDto">
+		select * from member
+		order by name
+	</select>
 	
-	select * from member
-	order by name
 	
+	<insert id="insertMember">
+		insert into member (userid,passwd,name,email) values
+		(#{userid}, #{passwd}, #{name}, #{email})
+	</insert>
+	
+	
+	<select id="viewMember" resultType="memberDto">
+		select * from member
+		where userid=#{userid}
+	</select>
+	
+	
+	<update id="updateMember">
+		update member
+		set passwd=#{passwd},
+		name=#{name},
+		email=#{email}
+		where userid=#{userid}
+	</update>
+	
+	
+	<!-- 회원 정보 삭제 -->
+	<delete id="deleteMember">
+		delete from member
+		where userid=#{userid}	
+	</delete>
+	
+	
+	<!-- 비밀번호 체크 -->
+	<select id="checkPw" resultType="int">
+		select count(*) from member
+		where userid=#{userid} and passwd=#{passwd}
 	</select>
 </mapper>
 
