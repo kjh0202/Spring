@@ -12,13 +12,13 @@ import com.product.spring.model.shop.dto.ProductDTO;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
+	/* 의존성 주입 */
 	@Inject
 	SqlSession sqlSession;
 	
 	@Override
 	public List<ProductDTO> listProduct() {
 		return sqlSession.selectList("product.list_product");
-		//product 와 list_product는 mapper의 이름임.
 	}
 
 	@Override
@@ -28,14 +28,17 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public void updateProduct(ProductDTO dto) {
+
 	}
 
 	@Override
-	public void deleteProduct(int product_id) {
+	public void deleteProduct(ProductDTO dto) {
+
 	}
 
 	@Override
 	public void insertProduct(ProductDTO dto) {
+
 	}
 
 	@Override

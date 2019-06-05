@@ -17,37 +17,31 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public List<ProductDTO> listProduct() {
-		
 		return productDao.listProduct();
 	}
 
 	@Override
 	public ProductDTO detailProduct(int product_id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void updateProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void deleteProduct(int product_id) {
-		// TODO Auto-generated method stub
+	public void deleteProduct(ProductDTO dto) {
 
 	}
 
 	@Override
 	public void insertProduct(ProductDTO dto) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public String fileInfo(int product_id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
